@@ -1,0 +1,5 @@
+{
+  "name": "Bandwidth Sharing Simulator",
+  "description": "A React web application that simulates and visualizes various network bandwidth sharing and multiplexing methods across multiple devices.",
+  "requestFramePermissions": []
+}
