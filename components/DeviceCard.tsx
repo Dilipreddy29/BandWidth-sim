@@ -73,37 +73,68 @@ const DeviceCard: React.FC<DeviceCardProps> = ({ device, onDemandChange, onPrior
       
       <div className="mt-4 space-y-3">
         {isPriorityMode && (
-          <div className="flex items-center justify-between">
-            <label htmlFor={`priority-${device.id}`} className="text-sm text-slate-400">
-              Set Priority:
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-slate-700/50 p-3 rounded-lg border border-yellow-500/30"
+          >
+            <label htmlFor={`priority-${device.id}`} className="text-xs font-semibold text-slate-300 uppercase mb-2 block tracking-wider">
+              Priority Level
             </label>
             <select
               id={`priority-${device.id}`}
               value={device.priority}
               onChange={(e) => onPriorityChange(device.id, parseInt(e.target.value))}
-              className="bg-slate-700 border border-slate-600 text-white text-sm rounded-md focus:ring-sky-500 focus:border-sky-500 p-1"
+              className="w-full bg-slate-600 border border-slate-500 text-white text-sm rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 p-2 font-semibold"
             >
               {priorityOptions.map(p => (
-                <option key={p} value={p}>{p}</option>
+                <option key={p} value={p}>Priority {p}</option>
               ))}
             </select>
-          </div>
+          </motion.div>
         )}
         {isInteractive && (
-          <div className="flex items-center justify-center space-x-3 pt-2">
-            <button 
-              onClick={() => onDemandChange(device.id, device.demand - 5)}
-              className="bg-slate-700 hover:bg-slate-600 rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold transition-colors"
-            >
-              -
-            </button>
-            <button 
-              onClick={() => onDemandChange(device.id, device.demand + 5)}
-              className="bg-slate-700 hover:bg-slate-600 rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold transition-colors"
-            >
-              +
-            </button>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-slate-700/50 p-3 rounded-lg border border-emerald-500/30"
+          >
+            <label className="text-xs font-semibold text-slate-300 uppercase mb-3 block tracking-wider">
+              Adjust Demand
+            </label>
+            <div className="flex items-center justify-between gap-2">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => onDemandChange(device.id, Math.max(0, device.demand - 10))}
+                className="bg-red-500/20 hover:bg-red-500/30 border border-red-500/50 text-red-400 rounded-lg w-10 h-10 flex items-center justify-center text-lg font-bold transition-all"
+              >
+                −
+              </motion.button>
+              <div className="flex-1">
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={device.demand}
+                  onChange={(e) => onDemandChange(device.id, parseFloat(e.target.value))}
+                  className="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                />
+              </div>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => onDemandChange(device.id, device.demand + 10)}
+                className="bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/50 text-emerald-400 rounded-lg w-10 h-10 flex items-center justify-center text-lg font-bold transition-all"
+              >
+                +
+              </motion.button>
+            </div>
+            <div className="mt-2 text-center">
+              <span className="text-xs text-slate-400">Current: </span>
+              <span className="text-sm font-bold text-emerald-400">{device.demand.toFixed(1)} Mbps</span>
+            </div>
+          </motion.div>
         )}
       </div>
     </motion.div>

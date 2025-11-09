@@ -106,35 +106,64 @@ const SimulatorPage: React.FC = () => {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-      <h1 className="text-3xl font-bold text-center mb-2 text-sky-400">Bandwidth Sharing Simulator</h1>
-      <p className="text-center text-slate-400 mb-8">Total Available Bandwidth: {TOTAL_BANDWIDTH} Mbps</p>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-6 bg-slate-800 rounded-lg shadow-xl border border-slate-700 mb-8">
-        <div>
-          <label htmlFor="numDevices" className="block text-sm font-medium text-slate-300 mb-2">Number of Devices: {numDevices}</label>
-          <input
-            type="range"
-            id="numDevices"
-            min={MIN_DEVICES}
-            max={MAX_DEVICES}
-            value={numDevices}
-            onChange={(e) => setNumDevices(parseInt(e.target.value))}
-            className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-sky-500"
-          />
-        </div>
-        <div className="lg:col-span-2">
-            <label className="block text-sm font-medium text-slate-300 mb-2">Sharing Method</label>
-            <div className="flex flex-wrap gap-2">
+      <h1 className="text-4xl font-bold text-center mb-1 text-white">Bandwidth Sharing Simulator</h1>
+      <div className="text-center mb-8">
+        <p className="text-slate-400 text-sm">Total Available Bandwidth</p>
+        <p className="text-3xl font-bold text-sky-400">{TOTAL_BANDWIDTH} Mbps</p>
+      </div>
+
+      <div className="p-6 bg-gradient-to-r from-slate-800 to-slate-750 rounded-lg shadow-xl border border-slate-700 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-slate-800/50 p-6 rounded-lg border border-slate-600 backdrop-blur-sm"
+          >
+            <label htmlFor="numDevices" className="block text-sm font-semibold text-slate-200 mb-4 uppercase tracking-wider">
+              Number of Devices
+            </label>
+            <div className="flex items-center gap-4">
+              <input
+                type="range"
+                id="numDevices"
+                min={MIN_DEVICES}
+                max={MAX_DEVICES}
+                value={numDevices}
+                onChange={(e) => setNumDevices(parseInt(e.target.value))}
+                className="flex-1 h-3 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-sky-500"
+              />
+              <div className="bg-sky-500/20 border border-sky-500 rounded-lg px-4 py-2 min-w-max">
+                <span className="text-2xl font-bold text-sky-400">{numDevices}</span>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-slate-800/50 p-6 rounded-lg border border-slate-600 backdrop-blur-sm"
+          >
+            <label className="block text-sm font-semibold text-slate-200 mb-4 uppercase tracking-wider">Sharing Method</label>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {Object.values(SharingType).map(type => (
-                    <button
+                    <motion.button
                         key={type}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={() => setSharingType(type)}
-                        className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${sharingType === type ? 'bg-sky-500 text-white' : 'bg-slate-700 hover:bg-slate-600'}`}
+                        className={`px-3 py-2 text-xs font-semibold rounded-lg transition-all ${
+                          sharingType === type
+                            ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/50'
+                            : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                        }`}
                     >
                         {type}
-                    </button>
+                    </motion.button>
                 ))}
             </div>
+          </motion.div>
         </div>
       </div>
 
