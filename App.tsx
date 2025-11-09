@@ -9,14 +9,14 @@ import AboutPage from './components/AboutPage'; // Import the new page
 const App: React.FC = () => {
   return (
     <HashRouter>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-slate-900">
         <Navbar />
-        <main className="flex-grow container mx-auto px-4 py-8">
+        <main className="flex-1 flex flex-col container mx-auto w-full px-4 py-8">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/simulator" element={<SimulatorPage />} />
             <Route path="/read" element={<ReadPage />} />
-            <Route path="/about" element={<AboutPage />} /> {/* Add the new route */}
+            <Route path="/about" element={<AboutPage />} />
           </Routes>
         </main>
       </div>

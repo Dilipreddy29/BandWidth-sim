@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="text-center flex flex-col items-center justify-center h-full"
+      className="text-center flex flex-col items-center justify-center flex-1 py-12"
     >
       <div className="max-w-3xl">
         <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4">
