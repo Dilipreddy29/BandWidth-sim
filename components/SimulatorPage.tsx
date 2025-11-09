@@ -176,11 +176,35 @@ const SimulatorPage: React.FC = () => {
       </div>
 
       <div className="mt-8 p-6 bg-slate-800 rounded-lg shadow-xl border border-slate-700">
-          <h3 className="text-xl font-bold mb-4 text-white">Metrics</h3>
-          <div className="flex items-center space-x-4">
-              <p className="text-slate-300">Utilization: <span className="font-bold text-sky-400">{utilization.toFixed(1)}%</span></p>
-              <p className="text-slate-300">Simulated Latency: <span className="font-bold text-sky-400">{(Math.random() * 20 + 10).toFixed(0)}ms</span></p>
+        <h3 className="text-xl font-bold mb-4 text-white">Network Metrics</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div className="bg-slate-700 p-4 rounded-lg">
+            <p className="text-slate-400 text-sm mb-2">Total Bandwidth Utilization</p>
+            <p className="text-2xl font-bold text-sky-400">{utilization.toFixed(1)}%</p>
           </div>
+          <div className="bg-slate-700 p-4 rounded-lg">
+            <p className="text-slate-400 text-sm mb-2">Network Latency</p>
+            <p className="text-2xl font-bold text-sky-400">{(Math.random() * 20 + 10).toFixed(0)}ms</p>
+          </div>
+        </div>
+
+        <div className="bg-slate-900 p-4 rounded-lg border border-slate-700">
+          <h4 className="text-md font-bold text-sky-400 mb-3">Metric Definitions</h4>
+          <div className="space-y-3">
+            <div>
+              <p className="text-sm font-semibold text-white">Satisfaction Ratio</p>
+              <p className="text-xs text-slate-400">Percentage of a device's bandwidth demand that is being fulfilled. Shows how well a device's network needs are being met (allocated / demand × 100). Green indicates 90% or above, yellow 70-90%, orange below 70%.</p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-white">Utilization Efficiency</p>
+              <p className="text-xs text-slate-400">Percentage of total network bandwidth allocated to this device. Indicates how much of the overall network capacity is dedicated to serving this device (device allocation / total bandwidth times 100).</p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-white">Network Latency</p>
+              <p className="text-xs text-slate-400">Time delay in milliseconds for data transmission across the network. Simulated value showing typical network response times in different conditions.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </motion.div>
   );

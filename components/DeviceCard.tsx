@@ -14,10 +14,18 @@ interface DeviceCardProps {
 
 const DeviceCard: React.FC<DeviceCardProps> = ({ device, onDemandChange, onPriorityChange, isInteractive, isPriorityMode, numDevices }) => {
   const allocatedPercentage = (device.allocated / TOTAL_BANDWIDTH) * 100;
+  const satisfactionRatio = device.demand > 0 ? (device.allocated / device.demand) * 100 : 100;
+  const utilizationEfficiency = (device.allocated / TOTAL_BANDWIDTH) * 100;
   const priorityOptions = Array.from({ length: numDevices }, (_, i) => i + 1);
 
+  const getMetricColor = (value: number) => {
+    if (value >= 90) return 'text-emerald-400';
+    if (value >= 70) return 'text-yellow-400';
+    return 'text-orange-400';
+  };
+
   return (
-    <motion.div 
+    <motion.div
       layout
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -41,9 +49,26 @@ const DeviceCard: React.FC<DeviceCardProps> = ({ device, onDemandChange, onPrior
             transition={{ duration: 0.5, ease: 'easeInOut' }}
           />
         </div>
-         <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-400 mb-3">
           Demand: <span className="font-semibold text-slate-200">{device.demand.toFixed(1)} Mbps</span>
         </p>
+
+        <div className="bg-slate-700 p-3 rounded-lg space-y-2 mb-3">
+          <div className="flex justify-between items-start">
+            <div>
+              <p className="text-xs text-slate-500 font-medium">Satisfaction</p>
+              <p className={`text-sm font-bold ${getMetricColor(satisfactionRatio)}`}>
+                {satisfactionRatio.toFixed(0)}%
+              </p>
+            </div>
+            <div>
+              <p className="text-xs text-slate-500 font-medium">Utilization</p>
+              <p className="text-sm font-bold text-sky-400">
+                {utilizationEfficiency.toFixed(1)}%
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
       
       <div className="mt-4 space-y-3">
